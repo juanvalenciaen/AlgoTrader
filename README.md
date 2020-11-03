@@ -1,7 +1,7 @@
 # AlgoTrader
 Algorithmic Trading resources, for personal, and team usage.
 
-Repetitive trading processes are packed through very simplified functions
+Repetitive trading processes are packed through very simplified and standarized functions
 
 ## folder from_courses:
 it has a compilation of script from courses, videos, blogs, online, etc.
