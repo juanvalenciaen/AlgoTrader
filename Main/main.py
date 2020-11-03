@@ -1,6 +1,5 @@
 #run this talib library you'll need to use yout own IDE
 # to install talib: https://blog.quantinsti.com/install-ta-lib-python/
-
 import numpy as np
 import matplotlib.pyplot as plt
 import math
