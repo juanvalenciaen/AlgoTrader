@@ -4,7 +4,7 @@ Algorithmic Trading resources, for personal, and team usage.
 Repetitive trading processes are packed through very simplified functions
 
 ## folder from_courses:
-it has a compilation of script from courses, online, etc.
+it has a compilation of script from courses, videos, blogs, online, etc.
 
 for educatinal purposes only
 
