@@ -2,12 +2,12 @@
 Algorithmic Trading resources, for personal, and team usage.
 
 
-##Folder: Main
+## First, go to folder: Main
 
-###Functions 
+### Functions.py
  this is the file where functions are stored
  
- functions designed for:
+ * Functions designed for: *
  
  - get financial data from different sources (keeping the format: symbol, Open, High, Low, Close, Volume)
  
@@ -33,3 +33,8 @@ Algorithmic Trading resources, for personal, and team usage.
    There are also some functions using Backtrader, and other backtesting frameworks
    
    theres another function to make an entry in MetaTrader 5
+   
+ ### Strategies.py
+ this is the place where strategies (datatype class)
+ are placed. 
+ These are strategies to backtest or apply with frameworks such as Backtrader, Lean, and Zipline
