@@ -1,13 +1,20 @@
 # AlgoTrader
 Algorithmic Trading resources, for personal, and team usage.
 
+Repetitive trading processes is packed through very simplified functions
 
-## First, go to folder: Main
+## folder from_courses:
+it has a compilation of script from courses, online, etc.
+
+for educatinal purposes only
+
+## go to folder: Main
 
 ### Functions.py
  this is the file where functions are stored
  
- * Functions designed for: *
+ 
+ **Functions designed for:**
  
  - get financial data from different sources (keeping the format: symbol, Open, High, Low, Close, Volume)
  
