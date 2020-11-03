@@ -10,6 +10,11 @@ for educatinal purposes only
 
 ## go to folder: Main
 
+### Introduction.ipynb
+
+is the jupyter notebook to introduce you through the functions
+
+
 ### Functions.py
  this is the file where functions are stored
  
@@ -44,4 +49,5 @@ for educatinal purposes only
  ### Strategies.py
  this is the place where strategies (datatype class)
  are placed. 
+ 
  These are strategies to backtest or apply with frameworks such as Backtrader, Lean, and Zipline
