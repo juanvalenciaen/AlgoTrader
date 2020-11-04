@@ -62,8 +62,15 @@ if result.retcode != mt5.TRADE_RETCODE_DONE:
  
 print("2. order_send done, ", result)
 print("   opened position with POSITION_TICKET={}".format(result.order))
+
+
+
+
 print("   sleep 2 seconds before closing position #{}".format(result.order))
 time.sleep(2)
+
+
+
 # create a close request
 position_id=result.order
 price=mt5.symbol_info_tick(symbol).bid
