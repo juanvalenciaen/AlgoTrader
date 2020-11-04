@@ -3,6 +3,8 @@ Algorithmic Trading resources, for personal, and team usage.
 
 Repetitive trading processes are packed through very simplified and standarized functions
 
+[GO directly to introduction to functions](https://github.com/juanvalenciaen/AlgoTrader/blob/master/Main/introduction.ipynb)
+
 ## folder from_courses:
 it has a compilation of script from courses, videos, blogs, online, etc.
 
