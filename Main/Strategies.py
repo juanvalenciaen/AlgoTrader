@@ -58,7 +58,7 @@ class TestStrategy(bt.Strategy):
 
 class GoldenCross(bt.Strategy):
     params = (('fast', 50), ('slow',200), ('order_percentage', 0.95), ('ticker', 'X'))
-    
+
     def __init__(self):
         self.fast_moving_average = bt.indicators.SMA(
             self.data.close, period =self.params.fast, plotname='50 day MA'

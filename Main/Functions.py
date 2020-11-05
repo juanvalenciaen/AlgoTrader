@@ -161,7 +161,7 @@ def chart(df, type='candle',vol=False,MA=False,log=False,adj=False):
 
 def chart_(df,log=False,vol=False):
   fig = plt.figure(figsize=(15,10))
-  ax1 = fig.add_axes([0.05, 0.21, 0.93, 0.75]) 
+  ax1 = fig.add_axes([0.05, 0.21, 0.93, 0.75])
   plt.grid(True)
   fig.autofmt_xdate()
   name = df['symbol'].iloc[0]
@@ -176,7 +176,7 @@ def chart_(df,log=False,vol=False):
     ax2 = fig.add_axes([0.05, 0.03, 0.93, 0.20],sharex=ax1) 
     original_flavor.volume_overlay(ax2, df.Open, df.Close, df.Volume, colorup='green', colordown='r',width=0.8, alpha=0.5)
   plt.show()
- 
+
 
 
 #run this code in another IDE because talib library doesnt run here
@@ -214,9 +214,9 @@ def get_indicators(data,fast=20,slow=50):
 
 
 # #turn a signal into a position
- 
- #converts a signal 1, or -1 
- #into a position maintaining the state -1 and +1 until it changes
+
+#converts a signal 1, or -1
+#into a position maintaining the state -1 and +1 until it changes
 def signal_to_position(df,signal,side=False):
     df['position'] = df[signal]
     i=0
@@ -248,11 +248,11 @@ def plot_signal(df, signal, position=False,lines=False):
   colores = []
   Trades = []
   for trade in buys:
-     fechas.append(trade)
-     colores.append('g')
+    fechas.append(trade)
+    colores.append('g')
   for trade in sells:
-     fechas.append(trade)
-     colores.append('r')
+    fechas.append(trade)
+    colores.append('r')
   df_trades = pd.DataFrame({'colors':colores}, index= fechas)
   df = df.join(df_trades)
   df['buy_price'] = np.where(df['colors'] == 'g', df['Close'], math.nan)
@@ -262,15 +262,15 @@ def plot_signal(df, signal, position=False,lines=False):
   if lines:
     marker = 0.1
     if position:
-      width = 0.7
-      alpha = 0.05
+      width = 0.3
+      alpha = 0.1
     else:
       width = 0.5
       alpha = 0.7
   else:
     width = 0.01
     alpha = 0.01
-    marker = 50
+    marker = 70
   if df['buy_price'].notnull().sum().sum() > 0:
     trades_buy = mpf.make_addplot(df['buy_price'],type='scatter',markersize=marker,marker='^',color='g')
     Trades.append(trades_buy)
@@ -278,9 +278,9 @@ def plot_signal(df, signal, position=False,lines=False):
     trades_sell = mpf.make_addplot(df['sell_price'],type='scatter',markersize=marker,marker='v',color='r')
     Trades.append(trades_sell)
   mpf.plot(df,type='candle',style='charles',figratio=(16,8), addplot=Trades, vlines=dict(vlines=fechas,colors=colores,linewidths=width,alpha=alpha), title=name + ' daily chart'+ ' signal:' + signal,ylabel='price')
-  
 
-    
+
+
 
 def plot_signal_(df, signal):
   fig = plt.figure(figsize=(12,6))
@@ -325,7 +325,7 @@ def plot_morningstar(symbol, n_months=12):
 
 def plot_backtest(data, position=False,returns='simple',leverage=1):
   if ('strategy' in data) == False:
-    data[position] = data[position].fillna(0)
+    #data[position] = data[position].fillna(0)
     if returns == 'simple':
       data['returns'] = (data['Close'] /data['Close'].shift(1))
     elif returns== 'log':
@@ -345,11 +345,11 @@ def plot_backtest(data, position=False,returns='simple',leverage=1):
 
 #backtest using backtrader:
 
-def backtrader(df, strategy,init=100000.0):
-  #name = df['symbol'].iloc[0]
+def backtrader(data, strategy,init=100000.0):
+  #name = data['symbol'].iloc[0]
   cerebro = bt.Cerebro()
   cerebro.broker.setcash(init)
-  feed = bt.feeds.PandasData(dataname=df)
+  feed = bt.feeds.PandasData(dataname=data)
   cerebro.adddata(feed)
   cerebro.addstrategy(strategy)
   print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
