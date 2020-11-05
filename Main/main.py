@@ -16,9 +16,8 @@ import talib
 import MetaTrader5 as mt5
 
 #importing my own libraries:
-import Functions as f
-import Strategies as s
+from Strategies import *
+from Functions import *
 
 
-
-
+live_strategy1()

@@ -17,9 +17,8 @@ from mplfinance import original_flavor
 import MetaTrader5 as mt5
 import backtrader as bt
 #import talib
- 
-#importing from my own libraries
-import Strategies as s
+
+#importing from my own library
 import config
 
 
@@ -51,11 +50,11 @@ def get_data_yh(symbol='BTC-USD',years=1):
     data = data[['symbol', 'Open', 'High', 'Low', 'Close','Adj Close', 'Volume']]
     return data
 
-def get_data_yh_intraday(symbol='GOOG',interval='60m',days=30):
+def get_data_yh_intraday(symbol='BTC-USD',timeframe='60m',days=30):
     n_days = dt.timedelta(days=days)
     end = dt.date.today()
     start = end - n_days
-    df = yf.download(symbol, start, end, interval=interval)
+    df = yf.download(symbol, start, end, interval=timeframe)
     df['symbol'] = symbol
     df = df[['symbol', 'Open', 'High', 'Low', 'Close','Adj Close', 'Volume']]
     return df
@@ -309,7 +308,7 @@ def plot_morningstar(symbol, n_months=12):
     df = symbol
   df['morningstar'] = talib.CDLMORNINGSTAR(df.Open, df.High, df.Low, df.Close)
   chart_signal(df, 'morningstar')
-  
+
 
 
 
@@ -346,7 +345,7 @@ def plot_backtest(data, position=False,returns='simple',leverage=1):
 
 #backtest using backtrader:
 
-def backtrader(df, strategy=s.BuyHold, init=1000000.0):
+def backtrader(df, strategy,init=100000.0):
   #name = df['symbol'].iloc[0]
   cerebro = bt.Cerebro()
   cerebro.broker.setcash(init)
@@ -386,7 +385,7 @@ def conect_data(symbols=['FB','AMZN','AAPL','NFLX','GOOGL'], type='t'):
       if type == 't':
         print('Tick data')
       elif type == 'm':
-        print('Minute data')  
+        print('Minute data')
       listen_message = {"action":"listen","data":{"streams":concatenation}}
       ws.send(json.dumps(listen_message))
   def on_message(ws, message):
@@ -403,7 +402,7 @@ def conect_data(symbols=['FB','AMZN','AAPL','NFLX','GOOGL'], type='t'):
 
 #Send order to MT5
 
-def get_order(symbol='USDJPY', side='long', lot=0.01,sl=100,tp=100,magic=101):
+def get_order(symbol='EURUSD', side='long', lot=0.01,sl=100,tp=100,magic=101):
     # establish connection to the MetaTrader 5 terminal
     if not mt5.initialize():
         print("initialize() failed, error code =",mt5.last_error())
@@ -473,7 +472,7 @@ def get_order(symbol='USDJPY', side='long', lot=0.01,sl=100,tp=100,magic=101):
 
 
 
-def get_closed(trade, symbol='USDJPY',side='long',lot=0.01,magic=102):
+def get_closed(trade, symbol='EURUSD',side='long',lot=0.01,magic=102):
     # establish connection to the MetaTrader 5 terminal
     if not mt5.initialize():
         print("initialize() failed, error code =",mt5.last_error())
@@ -532,6 +531,5 @@ def get_closed(trade, symbol='USDJPY',side='long',lot=0.01,magic=102):
         #         traderequest_dict=result_dict[field]._asdict()
         #         for tradereq_filed in traderequest_dict:
         #             #print("       traderequest: {}={}".format(tradereq_filed,traderequest_dict[tradereq_filed]))
-    
     # shut down connection to the MetaTrader 5 terminal
     mt5.shutdown()
