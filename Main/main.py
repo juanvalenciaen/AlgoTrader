@@ -5,19 +5,21 @@ import math
 import datetime as dt
 
 #library for charts
-import mplfinance as mpf
-from mplfinance import original_flavor
+#import mplfinance as mpf
+#from mplfinance import original_flavor
 
 #libraries for technical analysis
-import btalib
-import talib
+#import btalib
+#import talib
 
 #for metatrader integration:
-import MetaTrader5 as mt5
+#import MetaTrader5 as mt5
 
 #importing my own libraries:
 from Strategies import *
 from Functions import *
 
 
-live_strategy1()
+
+btc = get_data_binance()
+print(btc)

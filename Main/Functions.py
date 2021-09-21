@@ -77,6 +77,7 @@ def get_data_mt5(symbol='EURUSD',bars=500,to=0, timeframe='H1'):
     df = df[['symbol', 'Open', 'High', 'Low', 'Close', 'Volume','spread','real_volume']]
     return(df)
 
+#get inputs (symbol, and source) from here https://www.tensorcharts.com/tensor/markets
 def get_data_tensor(timeframe='1h',mode=2,extra_data=True,symbol='XBTUSD',source='bitmex'):
     if mode == 1:
         url = 'https://www.tensorcharts.com/tensor/bitmex/{}/bitmexStats/{}/0'.format(symbol,timeframe)
@@ -145,10 +146,8 @@ def get_data_binance(symbol='BTCUSDT', start_time='2020-06-22', end_time='2020-0
 
 
 #charting
-def chart(df, type='candle',vol=False,MA=False,log=False,adj=False):
+def chart(df, type='candle',vol=False,MA=False,log=False):
   name = df['symbol'].iloc[0]
-  if adj:
-    df.Close = df['Adj Close']
   if log:
     df.Close = np.log(df.Close)
     df.Open = np.log(df.Open)
@@ -179,6 +178,17 @@ def chart_(df,log=False,vol=False):
 
 
 
+#ajustar el precio a los datos de cierre ajustados (para splits, dividendos, etc)
+def adjusted(df):
+    df=df.copy()
+    lista=['Open','High','Low']
+    for f in lista:
+        df[f]=df[f]*df['Adj Close']/df['Close']
+    df=df.drop('Close', axis=1)
+    df=df.rename(columns = {'Adj Close': 'Close'} )
+    return df
+
+
 #run this code in another IDE because talib library doesnt run here
 # to install talib: https://blog.quantinsti.com/install-ta-lib-python/
 import talib
@@ -201,7 +211,10 @@ def get_indicators(data,fast=20,slow=50):
     return data
 
 
-
+def EMA(df, n):
+  EMA = pd.Series(pd.Series.ewm(df['Close'], span = n, min_periods = n-1, adjust = False).mean(), name = 'EMA_' + str(n))
+  df = df.join(EMA)
+  return df
 
 # #get signal:
 
@@ -316,13 +329,6 @@ def plot_morningstar(symbol, n_months=12):
 #backtest a strategy
 
 
-# def backtest(data, position):
-#   data[position] = data[position].fillna(0)
-#   data['returns'] = data['Close'] /data['Close'].shift(1)
-#   data['strategy'] = data['returns']**data[position].shift(1)
-#   data = data[['Close',position, 'returns', 'strategy']]
-#   return data
-
 def plot_backtest(data, position=False,returns='simple',leverage=1):
   if ('strategy' in data) == False:
     #data[position] = data[position].fillna(0)
@@ -338,9 +344,6 @@ def plot_backtest(data, position=False,returns='simple',leverage=1):
   plt.style.use('seaborn')
   data[['returns', 'strategy']].dropna().cumprod().plot(figsize=(14,6))
   plt.show()
-
-
-
 
 
 #backtest using backtrader:
